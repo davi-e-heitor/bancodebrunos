@@ -1,0 +1,48 @@
+create database clinica;
+use clinica;
+create table tbl_especialidades(
+id_especialidade int auto_increment primary key,
+descricao  varchar(255) not null
+);
+create table tbl_medicos(
+id_medico int auto_increment primary key,
+nome varchar(255) not null,
+telefone varchar(255) not null,
+id_especialidade int,
+foreign Key (id_especialidade) references tbl_especialidades(id_especialidade)
+);
+create table tbl_pacientes(
+id_paciente int auto_increment primary key,
+nome varchar(255) not null,
+telefone varchar(255) not null,
+email varchar(255) not null
+);
+create table tbl_consultas(
+id_consulta int auto_increment primary key,
+id_paciente int,
+id_medico int,
+data_consulta date not null,
+hora_consulta time not null,
+observacoes TEXT,
+FOREIGN KEY (id_paciente) REFERENCES tbl_pacientes(id_paciente),
+FOREIGN KEY (id_medico) REFERENCES tbl_medicos(id_medico)
+);insert into tbl_especialidades (descricao) values
+("otorrinolaringologista"),
+("Ginecologista"),
+("Urologista"),
+("podóloga");
+insert into tbl_medicos (nome,telefone,id_especialidade) values
+("Dr Roberto Carlos","3924-1748",1),
+("Dr Carlos Roberto","9876-5432",2),
+('Dr Davi Dancuart Cavalcante','1234-5678',3),
+('Dr Jacinto Pinto','4002-8922',4);
+insert into tbl_pacientes (nome,telefone,email) values
+("Anita Planert",'9979-1374','anita.slithills@email.com'),
+('Shinji Ikari','9817-4321','evangelio@gmail.com'),
+('Red Pyramid Thing','6666-6666','schemapyramid@email.com'),
+('Bruno Michel Pera','5555-5555','bruno.michel@email.com');
+INSERT INTO tbl_consultas (id_paciente, id_medico, data_consulta, hora_consulta, observacoes) VALUES
+(3, 1, '2025-03-25', '10:00:00', 'Exame de rotina'),
+(1, 2, '2025-03-26', '14:00:00', 'Avaliação Ginecológica'),
+(4, 3, '2025-03-27', '09:30:00', 'Exame de Próstota'),
+(2, 4, '2025-03-28', '15:00:00', 'Consulta de rotina');
